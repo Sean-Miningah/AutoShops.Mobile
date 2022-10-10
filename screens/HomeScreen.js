@@ -5,7 +5,7 @@ import { Bars3Icon } from "react-native-heroicons/solid"
 
 import GlobalStyles from '../GlobalStyles'
 import Service from '../components/Service'
-import Technician from '../components/Technician'
+import TechnicianCard from '../components/TechnicianCard'
 
 const HomeScreen = () => {
   const navigation = useNavigation()
@@ -46,7 +46,7 @@ const HomeScreen = () => {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        className="pt-2 max-h-14"
+        className="pt-2 h-16"
       >
         <Service />
         <Service />
@@ -64,13 +64,13 @@ const HomeScreen = () => {
         showsVerticalScrollIndicator={false}
         className="p-2"
       >
-        <Technician />
-        <Technician />
-        <Technician />
-        <Technician />
-        <Technician />
-        <Technician />
-        <Technician />
+        <TechnicianCard />
+        <TechnicianCard />
+        <TechnicianCard />
+        <TechnicianCard />
+        <TechnicianCard />
+        <TechnicianCard />
+        <TechnicianCard />
       </ScrollView>
 
     </SafeAreaView>

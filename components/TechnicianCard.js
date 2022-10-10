@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image} from 'react-native'
 import React from 'react'
 import { MapPinIcon, TrophyIcon } from 'react-native-heroicons/solid'
 
-const Technician = () => {
+const TechnicianCard = () => {
   return (
     <TouchableOpacity
         className="bg-amber-100 p-3 mb-2 rounded-lg"
@@ -43,4 +43,4 @@ const Technician = () => {
   )
 }
 
-export default Technician
+export default TechnicianCard
