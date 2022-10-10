@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native"
 import { Bars3Icon } from "react-native-heroicons/solid"
 
 import GlobalStyles from '../GlobalStyles'
+import Service from '../components/Service'
 
 const HomeScreen = () => {
   const navigation = useNavigation()
@@ -24,7 +25,7 @@ const HomeScreen = () => {
         
              
         <View className="flex-1">
-          <Text className="text-base text-teal-100"> Welcome </Text>
+          <Text className="text-base text-teal-400"> Welcome </Text>
           <Text className="text-xl font-bold"> Ronald </Text>
         </View>
 
@@ -37,9 +38,24 @@ const HomeScreen = () => {
           className="h-10 w-10 bg-gray-300 p-4 rounded-full"
         />
         </View>
-
-        
       </View>
+
+      {/* Services Scroll Menu */}
+      <ScrollView
+        horizontal
+        contentContainerStyle={{
+          paddingHorizontal: 15, 
+        }}
+        showsHorizontalScrollIndicator={false}
+        className="pt-2"
+      >
+        <Service />
+        <Service />
+        <Service />
+        <Service />
+        <Service />
+        <Service />
+      </ScrollView>
 
     </SafeAreaView>
   )
