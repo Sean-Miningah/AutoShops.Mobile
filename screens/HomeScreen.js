@@ -1,10 +1,11 @@
-import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from "@react-navigation/native"
 import { Bars3Icon } from "react-native-heroicons/solid"
 
 import GlobalStyles from '../GlobalStyles'
 import Service from '../components/Service'
+import Technician from '../components/Technician'
 
 const HomeScreen = () => {
   const navigation = useNavigation()
@@ -40,14 +41,12 @@ const HomeScreen = () => {
         </View>
       </View>
 
+
       {/* Services Scroll Menu */}
       <ScrollView
         horizontal
-        contentContainerStyle={{
-          paddingHorizontal: 15, 
-        }}
         showsHorizontalScrollIndicator={false}
-        className="pt-2"
+        className="pt-2 max-h-14"
       >
         <Service />
         <Service />
@@ -55,6 +54,23 @@ const HomeScreen = () => {
         <Service />
         <Service />
         <Service />
+      </ScrollView>
+
+      {/* Horizontal Line */}
+      <View className=" m-2 border-t-4 border-slate-300 border-2"></View>
+      
+      {/* Mechanics list feed */}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="p-2"
+      >
+        <Technician />
+        <Technician />
+        <Technician />
+        <Technician />
+        <Technician />
+        <Technician />
+        <Technician />
       </ScrollView>
 
     </SafeAreaView>
