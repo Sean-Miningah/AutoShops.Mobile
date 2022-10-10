@@ -4,6 +4,7 @@ import React from 'react'
 const Service = () => {
   return (
     <TouchableOpacity
+      className=""
     >
       <View
         className="bg-teal-300 mx-2 p-3 rounded-lg"
