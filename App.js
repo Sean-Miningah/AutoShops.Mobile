@@ -7,6 +7,7 @@ import HomeScreen from './screens/HomeScreen'
 import ChatScreen from './screens/ChatScreen'
 import FavouriteScreen from './screens/FavouriteScreen'
 import SettingScreen from './screens/SettingScreen'
+import TechnicianProfile from './screens/TechnicianProfile'
 
 // const Stack = createNativeStackNavigator()
 const Stack = createStackNavigator();
@@ -18,6 +19,11 @@ const MainStackNavigator = () => {
       <Stack.Screen name="Chat" component={ChatScreen} />
       <Stack.Screen name="Favourite" component={FavouriteScreen} />
       <Stack.Screen name="Settings" component={SettingScreen} />
+      <Stack.Screen 
+        name="TechnicianProfile" 
+        component={TechnicianProfile} 
+        options={{ headerShown:false}}
+      />
     </Stack.Navigator>
   )
 }
@@ -29,7 +35,11 @@ const BottomTabs = () => {
   return (
     <BottomTab.Navigator>
       <BottomTab.Screen name="Home" component={HomeScreen} />
-      <BottomTab.Screen name="Main-Settings" component={MainStackNavigator} />
+      <BottomTab.Screen 
+        name="Main-Stack" 
+        component={MainStackNavigator} 
+        options={{ headerShown:false}} 
+      />
     </BottomTab.Navigator>
   );
 };

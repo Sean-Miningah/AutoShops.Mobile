@@ -1,11 +1,19 @@
 import { View, Text, TouchableOpacity, Image} from 'react-native'
 import React from 'react'
 import { MapPinIcon, TrophyIcon } from 'react-native-heroicons/solid'
+import { useNavigation } from '@react-navigation/native'
+
 
 const TechnicianCard = () => {
+
+  const navigation = useNavigation()
+
   return (
     <TouchableOpacity
         className="bg-amber-100 p-3 mb-2 rounded-lg"
+        onPress={() => {
+          navigation.navigate('Main-Stack', { screen: 'TechnicianProfile'});
+        }}
     >   
       {/* Technician Performance Rank */}
       <View className="flex-row-reverse mb-5" >
