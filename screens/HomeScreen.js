@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native"
 import { Bars3Icon } from "react-native-heroicons/solid"
 
 import GlobalStyles from '../GlobalStyles'
-import Service from '../components/Service'
+import OptionButton from '../components/OptionButton'
 import TechnicianCard from '../components/TechnicianCard'
 
 const HomeScreen = () => {
@@ -48,12 +48,13 @@ const HomeScreen = () => {
         showsHorizontalScrollIndicator={false}
         className="pt-2 h-16"
       >
-        <Service />
-        <Service />
-        <Service />
-        <Service />
-        <Service />
-        <Service />
+        <OptionButton />
+        <OptionButton />
+        <OptionButton />
+        <OptionButton />
+        <OptionButton />
+        <OptionButton />
+        <OptionButton />
       </ScrollView>
 
       {/* Horizontal Line */}
