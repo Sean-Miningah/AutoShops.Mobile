@@ -2,15 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 import { Text, Button, TextInput, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useForm, Controller } from "react-hook-form"
-import * as Yup from "yup";
+import axios from "axios"
 
 import AppContext from "../AppContext"
 import GlobalStyles from '../GlobalStyles'
-import { register } from "../services/auth.service";
 
+const API_URL = "http://192.168.100.4:8000/api/auto-users/";
 
 const Register = ({ navigation }) => {
   const myContext = useContext(AppContext)
+
+  const [isRegistered, setRegistered] = useState(false)
+
   const { control, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       firstName: '',
@@ -19,20 +22,66 @@ const Register = ({ navigation }) => {
       password: ''
     }
   });
-  const onSubmit = (data) => {
-    if(register(data) === true) {
-      myContext.setIsRegistered(true)
-    } else {
-      myContext.setIsRegistered(false)
-    }
+
+  const register = (values) => {
+    return axios({
+      method: 'post',
+      url: API_URL + "register/", 
+      data: {
+        email: values.email,
+        password: values.password,
+        first_name: values.firstName,
+        last_name: values.lastName, 
+      }
+    })
+    .then((response) => {
+      if (response.status === 201){
+        setRegistered(true)
+        return true
+      } else {
+        console.log(reponse)
+        return false
+      }
+    })
+    .catch(error => {
+      if (error.response) {
+        console.log(error.response.status)
+      }
+      
+    })
+  };
+
+  const onSubmit = (values) => {
+    return axios({
+      method: 'post',
+      url: API_URL + "register/", 
+      data: {
+        email: values.email,
+        password: values.password,
+        first_name: values.firstName,
+        last_name: values.lastName, 
+      }
+    })
+    .then((response) => {
+      setRegistered(true) 
+    })
+    .catch(error => {
+      if (error.response) {
+        console.log(error.response.status)
+      }
+      
+    })
   }
 
-  if (myContext.Registered  === true){
-    navigation.navigate('LoginScreen')
-  }
+  useEffect(() => {
+    console.log(isRegistered)
+    if (isRegistered === true){
+      navigation.navigate('LoginScreen')
+    }
+  }, [isRegistered])
 
   return (
-    <View style={GlobalStyles.droidSafeArea } className="bg-orange-400 h-full">
+    <View style={GlobalStyles.droidSafeArea } className="bg-orange-400">
       <View className="pt-12 mx-4">
         <Text className="text-2xl text-orange-700">Register first to get access to thousand of workshops</Text>
       </View>
