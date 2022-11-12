@@ -1,144 +1,101 @@
-// import React, { useState, useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { Button, TextInput, View, Image } from 'react-native';
-// import {Formik } from "formik";
-// import * as Yup from "yup";
+import React, { useState, useEffect } from "react";
+import { Platform, Button, TextInput, View, Image } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import { useForm, Controller } from "react-hook-form"
+import * as Yup from "yup";
 
-// import { register } from "../slices/auth";
-// import { clearMessage } from "../slices/message";
+import GlobalStyles from '../GlobalStyles'
+import { register } from "../services/auth.service";
 
-// const Register = () => {
-//   const [successful, setSuccessful] = useState(false);
 
-//   const { message } = useSelector((state) => state.message);
-//   const dispatch = useDispatch();
+const Register = ({ navigation }) => {
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: ''
+    }
+  });
+  const onSubmit = data => console.log(data)
 
-//   useEffect(() => {
-//     dispatch(clearMessage());
-//   }, [dispatch]);
+  // handleRegister = (values) => {
+  //   console.log(values)
+  //   if (register(values)) {
+  //     () => navigation.navigate('LoginScreen')
+  //   }
+  // }
 
-//   const initialValues = {
-//     username: "",
-//     email: "",
-//     password: "",
-//   };
+  return (
+    <View style={GlobalStyles.droidSafeArea } className="col-md-12 signup-form">
+       <Controller
+        control={control}
+        rules={{
+         required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="firstName"
+      />
+      {errors.firstName && <Text>This is required.</Text>}
 
-//   const validationSchema = Yup.object().shape({
-//     username: Yup.string()
-//       .test(
-//         "len",
-//         "The username must be between 3 and 20 characters.",
-//         (val) =>
-//           val &&
-//           val.toString().length >= 3 &&
-//           val.toString().length <= 20
-//       )
-//       .required("This field is required!"),
-//     email: Yup.string()
-//       .email("This is not a valid email.")
-//       .required("This field is required!"),
-//     password: Yup.string()
-//       .test(
-//         "len",
-//         "The password must be between 6 and 40 characters.",
-//         (val) =>
-//           val &&
-//           val.toString().length >= 6 &&
-//           val.toString().length <= 40
-//       )
-//       .required("This field is required!"),
-//   });
+      <Controller
+        control={control}
+        rules={{
+         required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="lastName"
+      />
+      {errors.lastName && <Text>This is required.</Text>}
 
-//   const handleRegister = (formValue) => {
-//     const { username, email, password } = formValue;
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="email"
+      />
+      {errors.email && <Text>This is required.</Text>}
 
-//     setSuccessful(false);
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            secureTextEntry
+          />
+        )}
+        name="password"
+      />
+      {errors.password && <Text>This is required.</Text>}
 
-//     dispatch(register({ username, email, password }))
-//       .unwrap()
-//       .then(() => {
-//         setSuccessful(true);
-//       })
-//       .catch(() => {
-//         setSuccessful(false);
-//       });
-//   };
+      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+    </View>
+  );
+};
 
-//   return (
-//     <View className="col-md-12 signup-form">
-//       <View className="card card-container">
-//         <Image
-//           source={{uri:"//ssl.gstatic.com/accounts/ui/avatar_2x.png"}}
-//           className="profile-img-card"
-//         />
-//         <Formik
-//           initialValues={initialValues}
-//           validationSchema={validationSchema}
-//           onSubmit={handleRegister}
-//         >
-//           {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
-//             <>
-//               <TextInput 
-//                 name="username"
-//                 placeholder="Write your name here."
-//                 styles={styles.textInput}
-//                 onChangeText={handleChange('email')}
-//                 onBlur={handleBlur('username')}
-//                 value={values.username}
-//                 keyboardType="username"
-//               />
-//               {errors.username &&
-//                 <Text style={{ fontSize: 10, color: 'red' }}>{errors.username}</Text>
-//               }
-
-//               <TextInput 
-//                 name="email"
-//                 placeholder="Write your email here."
-//                 styles={styles.textInput}
-//                 onChangeText={handleChange('email')}
-//                 onBlur={handleBlur('email')}
-//                 value={values.email}
-//                 keyboardType="email"
-//               />
-//               {errors.email &&
-//                 <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>
-//               }
-
-//               <TextInput
-//                 name="password"
-//                 placeholder="Password"
-//                 style={styles.textInput}
-//                 onChangeText={handleChange('password')}
-//                 onBlur={handleBlur('password')}
-//                 value={values.password}
-//                 secureTextEntry
-//               />
-//               {errors.password &&
-//                 <Text style={{ fontSize: 10, color: 'red' }}>{errors.password}</Text>
-//               }  
-
-//               <Button
-//                 onPress={handleSubmit}
-//                 title="LOGIN"
-//                 disabled={!isValid}
-//               /> 
-//             </>
-//           )}
-//         </Formik>
-//       </View>
-
-//       {message && (
-//         <View className="form-group">
-//           <View
-//             className={successful ? "alert alert-success" : "alert alert-danger"}
-//             role="alert"
-//           >
-//             {message}
-//           </View>
-//         </View>
-//       )}
-//     </View>
-//   );
-// };
-
-// export default Register;
+export default Register;
