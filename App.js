@@ -6,10 +6,14 @@ import BottomTabNavigator from './navigation/TabNavigator';
 
 
 export default function App() { 
+  const [isRegistered, setIsRegistered] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+
   const userSettings = {
-    LoggedIn: isLoggedIn,
+    isLoggedIn,
+    isRegistered,
+    setIsRegistered,
     setIsLoggedIn
   }
   return (
