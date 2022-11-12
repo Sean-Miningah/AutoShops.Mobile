@@ -10,16 +10,33 @@ const setLoginLocal = async (loginData) => {
     console.log(err)
   }
 }
+
 // What are the register requirements?
-const register = (username, email, password) => {
-  return axios.post(API_URL + "signup", {
-    username,
-    email,
-    password,
-  });
+const register = (values) => {
+  return axios({
+    method: 'post',
+    url: API_URL + "register/", 
+    data: {
+      email: values.email,
+      password: values.password,
+      first_name: values.firstName,
+      last_name: values.lastName, 
+    }
+  })
+  .then((response) => {
+    if (response.status === 201){
+      console.log(response.data)
+      return true
+    } else {
+      console.log(response.data)
+      return false
+    }
+  })
+  .catch(error => console.error(error))
 };
 
 const login = (email, password) => {
+
   return axios({
     method: 'post',
     url: API_URL + 'login/',
