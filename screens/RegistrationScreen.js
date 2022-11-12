@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Text, Button, TextInput, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useForm, Controller } from "react-hook-form"
 import * as Yup from "yup";
 
+import AppContext from "../AppContext"
 import GlobalStyles from '../GlobalStyles'
 import { register } from "../services/auth.service";
 
 
 const Register = ({ navigation }) => {
+  const myContext = useContext(AppContext)
   const { control, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       firstName: '',
@@ -18,18 +20,16 @@ const Register = ({ navigation }) => {
     }
   });
   const onSubmit = (data) => {
-    console.log(data)
-    if(register(values)) {
-      () => navigation.navigate('LoginScreen')
+    if(register(data) === true) {
+      myContext.setIsRegistered(true)
+    } else {
+      myContext.setIsRegistered(false)
     }
   }
 
-  // handleRegister = (values) => {
-  //   console.log(values)
-  //   if (register(values)) {
-  //     () => navigation.navigate('LoginScreen')
-  //   }
-  // }
+  if (myContext.Registered  === true){
+    navigation.navigate('LoginScreen')
+  }
 
   return (
     <View style={GlobalStyles.droidSafeArea } className="bg-orange-400 h-full">
