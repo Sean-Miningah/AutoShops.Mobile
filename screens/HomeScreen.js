@@ -118,7 +118,7 @@ const HomeScreen = ({ navigation }) => {
             personal_info={technician.autouser}
             region={technician.region}
             rating={technician.rating}
-            profile_pic={technician.profile_picture}
+            profile_pic={technician.autouser.photo}
             description={technician.shop_description}
             shop_motto={technician.shop_goal}
             skill_badge={technician.skill_badge}
