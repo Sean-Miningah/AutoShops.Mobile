@@ -2,6 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "../screens/HomeScreen";
+import StartScreen from "../screens/StartScreen"
+import Register from "../screens/RegistrationScreen";
 import Login from "../screens/LoginScreen";
 import FavouriteScreen from "../screens/FavouriteScreen";
 import SettingScreen from "../screens/SettingScreen";
@@ -12,7 +14,13 @@ const Stack = createStackNavigator();
 
 const HomeStackNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="StartScreen" screenOptions={{headerShown: false}}>
+      <Stack.Screen name="StartScreen" 
+        component={StartScreen}
+        option={{headerShown: false}} />
+      <Stack.Screen name="Registration" 
+        component={Register}
+        option={{headerShown: false}} />
       <Stack.Screen name="LoginScreen"
         component={Login}
         option={{ headerShown: false}} />
