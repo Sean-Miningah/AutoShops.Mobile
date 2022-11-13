@@ -1,45 +1,90 @@
-import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, } from 'react-native'
-import React, { useLayoutEffect } from 'react'
-import { useNavigation } from "@react-navigation/native"
-import { Bars3Icon } from "react-native-heroicons/solid"
+import React, { useState, useContext, useEffect } from 'react';
+import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, ActivityIndicator} from 'react-native';
+import axios from "axios";
+import { Bars3Icon } from "react-native-heroicons/solid";
 
-import GlobalStyles from '../GlobalStyles'
-import OptionButton from '../components/OptionButton'
-import TechnicianCard from '../components/TechnicianCard'
+import AppContext from "../AppContext";
+import GlobalStyles from '../GlobalStyles';
+import OptionButton from '../components/OptionButton';
+import TechnicianCard from '../components/TechnicianCard';
 
-const HomeScreen = () => {
-  const navigation = useNavigation()
+const API_URL = "http://192.168.100.4:8000/api/"
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown:false,
-    })
+const HomeScreen = ({ navigation }) => {
+  // We need an api call to get technician Lisitngs and services
+  const { isLoggedIn, loginData, technicianListings, setTechnicianListings } = useContext(AppContext);
+  const [specializations, setSpecializations ] = useState([]);
+  const [ isLoading, setLoading] = useState(false);
+  
+
+  useEffect(()=> {
+    if (isLoggedIn !== true){
+      navigation.navigate('LoginScreen');
+    }
+  });
+
+  useEffect(() => {
+    
+    const client = axios.create({
+      baseURL: API_URL,
+    });
+    client.defaults.headers.common["Authorization"] = 'Bearer ' + loginData.access_token
+    const getTechnicianListing = () => {
+      client
+        .get('auto-users/technician-listing/')
+        .then((response) => {
+          setTechnicianListings(response.data)
+        })
+        .catch(e => console.log(e))   
+    };
+
+    const getSpecializations = () => {
+      client
+        .get('auto-users/technician-specializations/')
+        .then((response) => {
+          setSpecializations(response.data)
+        })
+        .catch(e => console.log(e))
+    }
+    setLoading(true);
+    getTechnicianListing();
+    getSpecializations();
+    setLoading(false)
   }, [])
-  return (
+
+  useEffect(() => {
+    console.log('This is the user data', loginData)
+    console.log('These are the listings' , technicianListings)
+    console.log('These are the specializations' , specializations)
+  });
+
+  // console.log(getData('specializations'))
+  return isLoading ? <ActivityIndicator size="large" color="#0000ff"/> : (
     <SafeAreaView style={GlobalStyles.droidSafeArea} className="bg-white pt-5">
 
-      {/* Header */}
-      <View style= {styles.container} className="flex-row mx-4 items-center">
+
+        {/* Header */}
+        <View style= {styles.container} className="flex-row mx-4 items-center">
         <View className="flex-1">
           <Bars3Icon size={40} color="black" /> 
         </View>
         
-             
+            
         <View className="flex-1">
           <Text className="text-base text-teal-400"> Welcome </Text>
-          <Text className="text-xl font-bold"> Ronald </Text>
+          <Text className="text-xl font-bold">{loginData.data.first_name} {loginData.data.last_name}</Text>
         </View>
 
         <View className="">
         <Image
           source={{
-            uri: 'https://images.unsplash.com/photo-1664960599656-7f634fcc772f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
-          }}  
-
+            uri: loginData.data.photo
+          }}
           className="h-10 w-10 bg-gray-300 p-4 rounded-full"
         />
         </View>
-      </View>
+      </View>   
+      
 
 
       {/* Services Scroll Menu */}
@@ -48,13 +93,14 @@ const HomeScreen = () => {
         showsHorizontalScrollIndicator={false}
         className="pt-2 h-16"
       >
-        <OptionButton />
-        <OptionButton />
-        <OptionButton />
-        <OptionButton />
-        <OptionButton />
-        <OptionButton />
-        <OptionButton />
+        {/* Services provided */}
+        {specializations?.map(specialization => (
+          <OptionButton 
+            key={specialization.id.toString()}
+            id={specialization.id}
+            title={specialization.name}
+          />
+        ))}
       </ScrollView>
 
       {/* Horizontal Line */}
@@ -65,13 +111,21 @@ const HomeScreen = () => {
         showsVerticalScrollIndicator={false}
         className="p-2"
       >
-        <TechnicianCard />
-        <TechnicianCard />
-        <TechnicianCard />
-        <TechnicianCard />
-        <TechnicianCard />
-        <TechnicianCard />
-        <TechnicianCard />
+        {technicianListings?.map(technician => (
+          <TechnicianCard 
+            key={technician.id.toString()}
+            id={technician.id}
+            personal_info={technician.autouser}
+            region={technician.region}
+            rating={technician.rating}
+            profile_pic={technician.profile_picture}
+            description={technician.shop_description}
+            shop_motto={technician.shop_goal}
+            skill_badge={technician.skill_badge}
+            reviews={technician.technician_feedback}  
+            specializatons={technician.technician_specialization} 
+          />
+        ))}
       </ScrollView>
 
     </SafeAreaView>

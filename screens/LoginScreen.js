@@ -4,13 +4,12 @@ import { useForm, Controller } from "react-hook-form"
 import axios from "axios"
 
 import AppContext from "../AppContext";
-import { setLoginData } from "../services/auth.service"
 import GlobalStyles from '../GlobalStyles'
 
 const API_URL = "http://192.168.100.4:8000/api/auto-users/";
 
 const Login = ({ navigation }) => {
-  const {setIsLoggedIn, isLoggedIn} = useContext(AppContext);
+  const {setIsLoggedIn, isLoggedIn, setLoginData } = useContext(AppContext);
 
 
   useLayoutEffect(() => {
@@ -26,6 +25,8 @@ const Login = ({ navigation }) => {
     }
   })
 
+ 
+
   const onSubmit = (values) => {
     return axios({
       method: 'post',
@@ -37,7 +38,6 @@ const Login = ({ navigation }) => {
     })
     .then((response) => {
       if (response.status === 201){
-        console.log(response.data);
         setLoginData(response.data);
         setIsLoggedIn(true);
       }
@@ -46,11 +46,10 @@ const Login = ({ navigation }) => {
   }; 
 
   useEffect(() => {
-    console.log(isLoggedIn)
     if (isLoggedIn === true){
       navigation.navigate('HomeScreen')
     }
-  }, [isLoggedIn])
+  });
 
   return (
     <View
