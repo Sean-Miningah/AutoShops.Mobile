@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, Button } from 'react-native'
+import { View, Text, Image, ScrollView, Pressable } from 'react-native'
 import React from 'react'
 import { BookmarkIcon } from 'react-native-heroicons/solid'
 
@@ -43,12 +43,18 @@ const TechnicianProfile = ({ route, navigation }) => {
         <View className=" m-2 border-t-4 border-slate-300 border-2"></View>
 
         {/* Technician Profile Body */}
-        <View>
+        <View className="mx-4 my-2">
+
           {/* Shop Motto and Description */}  
-          <View>
-            <Text>{shop_motto}</Text>
-            <Text>{description}</Text>
+          <View className="mb-4">
+            <Text className=" mb-2 text-justify ">{shop_motto}</Text>
+            <View className="">
+              <Text className="text-xl font-semibold">Shop Description</Text>
+              <Text className="mb-2 text-justify">{description}</Text>
+            </View>
+            
           </View> 
+
           {/* Specializatons List */}
           <View>
             {specializations[0].specialization?.map(specialization => (
@@ -58,15 +64,24 @@ const TechnicianProfile = ({ route, navigation }) => {
               />
             ))}
           </View>
+
           {/* Technician Skill Badge */}
           <View>
             <Text>{skill_badge.badge} badge</Text>
           </View>
+        </View>
 
-          <View>
-            <Button title="Request-Quotaton"/>
-            <Button title="Book Session"/>
-          </View>
+        <View className=" flex-row w-full justify-around pt-10">
+          <Pressable 
+            className="bg-orange-300 h-12 w-28 p-2 justify-center rounded-lg"
+          >
+            <Text className="text-center text-orange-800">Request Quotation</Text>
+          </Pressable>
+          <Pressable
+            className="bg-orange-300 h-12 w-28 p-2 justify-center rounded-lg"
+          >
+            <Text className="text-center text-orange-800">Book Session</Text>
+          </Pressable>
         </View>
       </View>
     </ScrollView>
