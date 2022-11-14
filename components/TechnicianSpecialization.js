@@ -5,8 +5,8 @@ const TechnicianSpecialization = ({
     name,
 }) => {
   return (
-    <View>
-      <Text>{name}</Text>
+    <View className="pl-4">
+      <Text className="font-semibold capitalize text-xl"> - {name}</Text>
     </View>
   )
 }

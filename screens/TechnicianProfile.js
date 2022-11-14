@@ -1,6 +1,6 @@
-import { View, Text, Image, ScrollView, Pressable } from 'react-native'
-import React from 'react'
-import { BookmarkIcon } from 'react-native-heroicons/solid'
+import { View, Text, Image, ScrollView, Pressable } from 'react-native';
+import React from 'react';
+import { BookmarkIcon, CheckBadgeIcon, SparklesIcon } from 'react-native-heroicons/solid';
 
 import TechnicianSpecialization from '../components/TechnicianSpecialization'
 
@@ -20,7 +20,46 @@ const TechnicianProfile = ({ route, navigation }) => {
     specializations
   } = route.params
 
-  
+  const skillbadge = (badge) => {
+    if(badge === 'gold'){
+      return (
+        <View>
+          <View>
+          <SparklesIcon size="32" color="brown" className="pl-4"/>
+            <SparklesIcon size="32" color="brown" className="pl-4"/>
+            <SparklesIcon size="32" color="brown" className="pl-4"/>
+          </View>
+          <View className="pt-2 font-semibold">
+            <Text> This technician has a {badge} badge. He is a specialist.</Text>
+          </View>
+          
+        </View>
+      )
+    } else if(badge === 'silver'){
+      return (
+        <View>
+          <View>
+          <SparklesIcon size="32" color="brown" className="pl-4"/>
+            <SparklesIcon size="32" color="brown" className="pl-4"/>
+          </View>
+          <View className="pt-2 font-semibold">
+            <Text> This technician has a {badge} badge. He is well experienced.</Text> 
+          </View>
+        </View>
+      )
+    } else if (badge === 'bronze'){
+      return (
+        <View class="flex-row w-full">
+          <View className="pl-4">
+            <SparklesIcon size="32" color="brown" className="pl-4"/>
+          </View>
+          <View className="pt-2 font-semibold">
+            <Text>This technician has a {badge} badge. He is a novice.</Text> 
+          </View>
+        </View> 
+      )
+    }
+  }
   console.log('These are specializations in technicianCard', specializations[0])
   return (
     <ScrollView>
@@ -49,7 +88,7 @@ const TechnicianProfile = ({ route, navigation }) => {
           <View className="mb-4">
             <Text className=" mb-2 text-justify ">{shop_motto}</Text>
             <View className="">
-              <Text className="text-xl font-semibold">Shop Description</Text>
+              <Text className="text-xl font-semibold">Technician Description</Text>
               <Text className="mb-2 text-justify">{description}</Text>
             </View>
             
@@ -57,6 +96,7 @@ const TechnicianProfile = ({ route, navigation }) => {
 
           {/* Specializatons List */}
           <View>
+            <Text className="mb-2 font-bold">This Technician Specializes in the folloiwing areas</Text>
             {specializations[0].specialization?.map(specialization => (
               <TechnicianSpecialization
                 key={specialization.id}
@@ -66,12 +106,15 @@ const TechnicianProfile = ({ route, navigation }) => {
           </View>
 
           {/* Technician Skill Badge */}
-          <View>
-            <Text>{skill_badge.badge} badge</Text>
+          
+          <View className="py-3">
+            {
+              skillbadge(skill_badge.badge)
+            }
           </View>
-        </View>
+          </View>
 
-        <View className=" flex-row w-full justify-around pt-10">
+        <View className=" flex-row w-full justify-around pt-4">
           <Pressable 
             className="bg-orange-300 h-12 w-28 p-2 justify-center rounded-lg"
           >
