@@ -25,10 +25,7 @@ const HomeScreen = ({ navigation }) => {
   });
 
   useEffect(() => {
-    
-    // const client = axios.create({
-    //   baseURL: API_URL,
-    // });
+ 
     client.defaults.headers.common["Authorization"] = 'Bearer ' + loginData.access_token
     const getTechnicianListing = () => {
       client
