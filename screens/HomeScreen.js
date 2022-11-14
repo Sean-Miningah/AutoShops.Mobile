@@ -53,9 +53,9 @@ const HomeScreen = ({ navigation }) => {
   }, [])
 
   useEffect(() => {
-    console.log('This is the user data', loginData)
+  //   console.log('This is the user data', loginData)
     console.log('These are the listings' , technicianListings)
-    console.log('These are the specializations' , specializations)
+    // console.log('These are the specializations' , specializations)
   });
 
   // console.log(getData('specializations'))
@@ -119,11 +119,12 @@ const HomeScreen = ({ navigation }) => {
             region={technician.region}
             rating={technician.rating}
             profile_pic={technician.autouser.photo}
+            shop_pic={technician.profile_picture}
             description={technician.shop_description}
             shop_motto={technician.shop_goal}
             skill_badge={technician.skill_badge}
             reviews={technician.technician_feedback}  
-            specializatons={technician.technician_specialization} 
+            specializations={technician.technician_specialization} 
           />
         ))}
       </ScrollView>
