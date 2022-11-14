@@ -10,6 +10,7 @@ const TechnicianCard = ({
   region,
   rating,
   profile_pic,
+  shop_pic,
   description,
   shop_motto,
   skill_badge,
@@ -18,7 +19,6 @@ const TechnicianCard = ({
 }) => {
 
   const navigation = useNavigation()
-
   return (
     <TouchableOpacity
         className="bg-amber-100 p-3 mb-2 rounded-lg"
@@ -28,7 +28,8 @@ const TechnicianCard = ({
             personal_info,
             region,
             rating,
-            profiel_pic,
+            profile_pic,
+            shop_pic,
             description,
             shop_motto,
             skill_badge,
