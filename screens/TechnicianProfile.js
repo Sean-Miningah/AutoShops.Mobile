@@ -20,11 +20,23 @@ const TechnicianProfile = ({ route, navigation }) => {
     specializations
   } = route.params
 
+  const handleBookSession = (value) => {
+    console.log(value)
+  }
+
+  const handleRequestQuotation = (value) => {
+    console.log(value)
+  }
+
+  const handleFavourite = (value) => {
+    alert(personal_info.first_name + ' ' + personal_info.last_name + ' has been added to your favourites.')
+    console.log(value)
+  }
   const skillbadge = (badge) => {
     if(badge === 'gold'){
       return (
         <View>
-          <View>
+          <View className="flex-row">
           <SparklesIcon size="32" color="brown" className="pl-4"/>
             <SparklesIcon size="32" color="brown" className="pl-4"/>
             <SparklesIcon size="32" color="brown" className="pl-4"/>
@@ -38,7 +50,7 @@ const TechnicianProfile = ({ route, navigation }) => {
     } else if(badge === 'silver'){
       return (
         <View>
-          <View>
+          <View className="flex-row">
           <SparklesIcon size="32" color="brown" className="pl-4"/>
             <SparklesIcon size="32" color="brown" className="pl-4"/>
           </View>
@@ -60,7 +72,6 @@ const TechnicianProfile = ({ route, navigation }) => {
       )
     }
   }
-  console.log('These are specializations in technicianCard', specializations[0])
   return (
     <ScrollView>
       <View className='relative'>
@@ -75,7 +86,14 @@ const TechnicianProfile = ({ route, navigation }) => {
       <View className="p-2">
         <View className="flex-row justify-between">
           <Text className="text-2xl px-2">{personal_info.first_name + ' ' + personal_info.last_name}</Text>
-          <BookmarkIcon size={36} color="grey" />
+          <Pressable
+            onPress={() => {
+              handleFavourite(id)
+              alert('You Favorite')
+            }}
+          >
+            <BookmarkIcon size={36} color="grey" />
+          </Pressable> 
         </View>
 
         {/* Horizontal Line */}
@@ -116,12 +134,14 @@ const TechnicianProfile = ({ route, navigation }) => {
 
         <View className=" flex-row w-full justify-around pt-4">
           <Pressable 
+            onPress={() => handleRequestQuotation(id)}
             className="bg-orange-300 h-12 w-28 p-2 justify-center rounded-lg"
           >
             <Text className="text-center text-orange-800">Request Quotation</Text>
           </Pressable>
           <Pressable
             className="bg-orange-300 h-12 w-28 p-2 justify-center rounded-lg"
+            onPress={() => handleBookSession(id)}
           >
             <Text className="text-center text-orange-800">Book Session</Text>
           </Pressable>

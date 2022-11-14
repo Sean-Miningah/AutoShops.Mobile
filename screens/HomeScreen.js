@@ -7,6 +7,7 @@ import AppContext from "../AppContext";
 import GlobalStyles from '../GlobalStyles';
 import OptionButton from '../components/OptionButton';
 import TechnicianCard from '../components/TechnicianCard';
+import { client } from '../services/api/AutoShopsApi';
 
 const API_URL = "http://192.168.100.4:8000/api/"
 
@@ -25,9 +26,9 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     
-    const client = axios.create({
-      baseURL: API_URL,
-    });
+    // const client = axios.create({
+    //   baseURL: API_URL,
+    // });
     client.defaults.headers.common["Authorization"] = 'Bearer ' + loginData.access_token
     const getTechnicianListing = () => {
       client
