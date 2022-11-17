@@ -1,11 +1,14 @@
 import { View, Text, Image, ScrollView, Pressable } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { BookmarkIcon, CheckBadgeIcon, SparklesIcon } from 'react-native-heroicons/solid';
 
-import TechnicianSpecialization from '../components/TechnicianSpecialization'
+import { client } from '../services/api/AutoShopsApi';
+import AppContext from "../AppContext"
+import TechnicianSpecialization from '../components/TechnicianSpecialization';
 
 
 const TechnicianProfile = ({ route, navigation }) => {
+  const { loginData } = useContext(AppContext);
   const { 
     id,
     personal_info,
@@ -31,6 +34,21 @@ const TechnicianProfile = ({ route, navigation }) => {
   const handleFavourite = (value) => {
     alert(personal_info.first_name + ' ' + personal_info.last_name + ' has been added to your favourites.')
     console.log(value)
+    client.defaults.headers.common["Authorization"] = 'Bearer ' + loginData.access_token
+    client
+      .post(
+        'auto-users/favourites/',
+        data=JSON.stringify({
+          technician: value,
+        }),
+        options={
+          headers:{"content-type":"application/json"}
+        }
+      )
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch(e => console.log(e))
   }
   const skillbadge = (badge) => {
     if(badge === 'gold'){
@@ -137,7 +155,7 @@ const TechnicianProfile = ({ route, navigation }) => {
             onPress={() => handleRequestQuotation(id)}
             className="bg-orange-300 h-12 w-28 p-2 justify-center rounded-lg"
           >
-            <Text className="text-center text-orange-800">Request Quotation</Text>
+            <Text className="text-center text-orange-800">Start Chat</Text>
           </Pressable>
           <Pressable
             className="bg-orange-300 h-12 w-28 p-2 justify-center rounded-lg"
