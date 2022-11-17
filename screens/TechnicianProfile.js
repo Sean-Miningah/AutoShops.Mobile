@@ -25,6 +25,12 @@ const TechnicianProfile = ({ route, navigation }) => {
 
   const handleBookSession = (value) => {
     console.log(value)
+    navigation.navigate('Home', {
+      screen: 'BookingScreen',
+      params: {
+        techncian: value,
+      }
+    })
   }
 
   const handleRequestQuotation = (value) => {
