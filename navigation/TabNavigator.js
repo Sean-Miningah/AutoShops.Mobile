@@ -10,7 +10,7 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={HomeStackNavigator} options={{headerShown: false}}/>
-      <Tab.Screen name="Favourites" component={FavouriteStackNavigator} />
+      <Tab.Screen name="Favourites" component={FavouriteStackNavigator} options={{headerShown: false}}/>
       <Tab.Screen name="Settings" component={SettingStackNavigator} />
       <Tab.Screen name="Chat" component={ChatStackNavigator} />
     </Tab.Navigator>

@@ -39,7 +39,11 @@ const HomeStackNavigator = () => {
 const FavouriteStackNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Favourite" component={FavouriteScreen} />
+      <Stack.Screen 
+        name="Favourite" 
+        component={FavouriteScreen} 
+        options={{ headerShown: false}}
+        />
     </Stack.Navigator>
   )
 }
