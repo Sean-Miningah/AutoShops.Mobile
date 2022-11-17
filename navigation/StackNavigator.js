@@ -9,6 +9,7 @@ import FavouriteScreen from "../screens/FavouriteScreen";
 import SettingScreen from "../screens/SettingScreen";
 import ChatScreen from "../screens/ChatScreen";
 import TechnicianProfile from "../screens/TechnicianProfile"
+import BookingScreen from "../screens/BookingScreen";
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,11 @@ const HomeStackNavigator = () => {
         name="TechnicianProfile"
         component={TechnicianProfile}
         options={{ headerShown:false}}
+      />
+      <Stack.Screen
+        name="BookingScreen"
+        component={BookingScreen}
+        options={{ headerShown: false}} 
       />
     </Stack.Navigator>
   )
