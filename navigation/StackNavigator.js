@@ -10,6 +10,7 @@ import SettingScreen from "../screens/SettingScreen";
 import ChatScreen from "../screens/ChatScreen";
 import TechnicianProfile from "../screens/TechnicianProfile"
 import BookingScreen from "../screens/BookingScreen";
+import HomeBookings from "../screens/HomeBookings";
 
 const Stack = createStackNavigator();
 
@@ -60,10 +61,17 @@ const FavouriteStackNavigator = () => {
   )
 }
 
-const SettingStackNavigator = () => {
+const BookingsNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="SettingScreen" component={SettingScreen}/>
+      <Stack.Screen name="HomeBooking" component={HomeBookings} 
+      options={{ 
+          headerShown:true,
+          title: ' Bookings',
+          headerStyle : {
+            backgroundColor: 'papayawhip'
+          }
+        }} />
     </Stack.Navigator>
   )
 }
@@ -77,4 +85,4 @@ const ChatStackNavigator = () => {
   )
 }
 
-export { HomeStackNavigator, FavouriteStackNavigator, SettingStackNavigator, ChatStackNavigator }
+export { HomeStackNavigator, FavouriteStackNavigator, BookingsNavigator, ChatStackNavigator }
