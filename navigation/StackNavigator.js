@@ -11,6 +11,7 @@ import ChatScreen from "../screens/ChatScreen";
 import TechnicianProfile from "../screens/TechnicianProfile"
 import BookingScreen from "../screens/BookingScreen";
 import HomeBookings from "../screens/HomeBookings";
+import HomeFavourites from "../screens/HomeFavourites";
 
 const Stack = createStackNavigator();
 
@@ -53,10 +54,16 @@ const FavouriteStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen 
-        name="Favourite" 
-        component={FavouriteScreen} 
-        options={{ headerShown: false}}
-        />
+        name="FavouriteHome" 
+        component={HomeFavourites} 
+        options={{ 
+          headerShown:true,
+          title: 'Favourites',
+          headerStyle : {
+            backgroundColor: 'papayawhip'
+          }
+        }}
+      />
     </Stack.Navigator>
   )
 }
