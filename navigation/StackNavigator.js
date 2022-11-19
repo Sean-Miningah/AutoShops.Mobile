@@ -12,6 +12,7 @@ import TechnicianProfile from "../screens/TechnicianProfile"
 import BookingScreen from "../screens/BookingScreen";
 import HomeBookings from "../screens/HomeBookings";
 import HomeFavourites from "../screens/HomeFavourites";
+import BookingDetails from "../screens/BookingDetails";
 
 const Stack = createStackNavigator();
 
@@ -72,13 +73,23 @@ const BookingsNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="HomeBooking" component={HomeBookings} 
-      options={{ 
+        options={{ 
+            headerShown:true,
+            title: 'Bookings',
+            headerStyle : {
+              backgroundColor: 'papayawhip'
+            }
+          }} 
+        />
+      <Stack.Screen name="EditBooking" component={BookingDetails}
+        options={{
           headerShown:true,
-          title: ' Bookings',
-          headerStyle : {
-            backgroundColor: 'papayawhip'
+          title: 'Edit Bookings',
+          headerStyle: {
+            backgroundColor: "papayawhip"
           }
-        }} />
+        }} 
+      />
     </Stack.Navigator>
   )
 }
