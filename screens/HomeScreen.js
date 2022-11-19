@@ -50,13 +50,7 @@ const HomeScreen = ({ navigation }) => {
     setLoading(false)
   }, [])
 
-  useEffect(() => {
-  //   console.log('This is the user data', loginData)
-    console.log('These are the listings' , technicianListings)
-    // console.log('These are the specializations' , specializations)
-  });
 
-  // console.log(getData('specializations'))
   return isLoading ? <ActivityIndicator size="large" color="#0000ff"/> : (
     <SafeAreaView style={GlobalStyles.droidSafeArea} className="bg-white pt-5">
 
