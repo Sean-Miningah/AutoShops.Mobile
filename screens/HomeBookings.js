@@ -37,7 +37,7 @@ const HomeBookings = () => {
   }, [bookTechnicians])
 
   return isLoading ? <ActivityIndicator size="large" color="#0000ff" /> : (
-    <ScrollView>
+    <ScrollView className=" bg-amber-50">
       {bookTechnicians?.map(technician => (
         <BookingCard
           key={technician.id}
