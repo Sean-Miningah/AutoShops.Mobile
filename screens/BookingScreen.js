@@ -3,9 +3,12 @@ import React, { useState, useEffect } from 'react'
 import { useForm, Controller } from "react-hook-form";
 import DatePicker from 'react-native-modern-datepicker';
 
-import GlobalStyles from '../GlobalStyles'
+import GlobalStyles from '../GlobalStyles';
+import { client } from '../services/api/AutoShopsApi';
 
-const BookingScreen = () => {
+const BookingScreen = ({ route, navigation }) => {
+  const { technician } = route.params;
+
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [open, setOpen] = useState(false);
@@ -57,12 +60,29 @@ const BookingScreen = () => {
     }
   }
 
-  useEffect(() => {
-    console.log(date, time)
-  },[date, time])
-  // const onSubmit = data => console.log(data);
+  const submitForm = (formData) => {
+    console.log(formData)
+    console.log(technician)
+    client
+      .post('auto-users/bookings/',
+        data=JSON.stringify({
+          time: formData.time,
+          date: formData.date.replace(/[/]/g, '-'),
+          autouser_description: formData.description,
+          technician: technician
+        }),
+        options={
+          headers:{"content-type": "application/json"}
+        }
+      )
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch(e => console.log(e))
+
+  }
   const onSubmit = (data) => {
-    console.log(data)
+    submitForm(data)
   }
   return (
     <ScrollView style={GlobalStyles.droidSafeArea}>
