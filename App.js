@@ -10,6 +10,9 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginData, setLoginData] = useState({})
   const [technicianListings, setTechnicianListings] = useState([]);
+  const [favouriteTechnicians, setFavouriteTechnicians] = useState([]);
+  const [bookTechnicians, setBookTechnician] = useState([]);
+
 
 
   const userSettings = {
@@ -17,10 +20,14 @@ export default function App() {
     isRegistered,
     technicianListings,
     loginData,
+    favouriteTechnicians,
+    bookTechnicians,
     setTechnicianListings,
     setLoginData,
     setIsRegistered,
-    setIsLoggedIn
+    setIsLoggedIn,
+    setFavouriteTechnicians,
+    setBookTechnician
   }
   return (
     <AppContext.Provider value={userSettings}>
