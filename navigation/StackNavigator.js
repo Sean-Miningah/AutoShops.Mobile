@@ -36,7 +36,13 @@ const HomeStackNavigator = () => {
       <Stack.Screen
         name="BookingScreen"
         component={BookingScreen}
-        options={{ headerShown: false}} 
+        options={{ 
+          headerShown:true,
+          title: 'Create A Booking',
+          headerStyle : {
+            backgroundColor: 'papayawhip'
+          }
+        }} 
       />
     </Stack.Navigator>
   )
