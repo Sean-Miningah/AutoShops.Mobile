@@ -30,7 +30,7 @@ const HomeBookings = () => {
     setLoading(true);
     getBookings();
     setLoading(false)
-  }, [])
+  }, [loginData])
 
   useEffect(() => {
     console.log('bookings.....', bookTechnicians)

@@ -19,6 +19,7 @@ const HomeFaveCard = ({
 }) => {
 
   const navigation = useNavigation();
+
   return (
     <TouchableOpacity
       onPress={() => {
