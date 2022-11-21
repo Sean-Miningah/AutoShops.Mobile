@@ -7,7 +7,7 @@ import { client } from '../services/api/AutoShopsApi';
 import GlobalStyles from '../GlobalStyles';
 import HomeFaveCard from '../components/HomeFaveCard';
 
-const HomeFavourites = () => {
+const HomeFavourites = ({navigation}) => {
   const { isLoggedIn, loginData } = useContext(AppContext);
   const [favourites, setFavourites] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -24,17 +24,15 @@ const HomeFavourites = () => {
       client
         .get('auto-users/favourites/')
         .then((response) => {
-          console.log('Favouirites  ',response.data)
           setFavourites(response.data)
-          console.log(response.data)
         })
         .catch(e => console.log(e))
     };
 
     setLoading(true);
-    getFavourites();
+    getFavourites(); 
     setLoading(false);
-  }, [])
+  }, [loginData])
 
   return isLoading ? <ActivityIndicator size="large" color="0000ff" /> : (
     <ScrollView className="bg-green-50 py-2">
