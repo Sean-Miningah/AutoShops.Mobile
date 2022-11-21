@@ -1,4 +1,4 @@
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, Pressable } from 'react-native'
 import React from 'react'
 import GlobalStyles from '../GlobalStyles'
 
@@ -7,32 +7,33 @@ const StartScreen = ({ navigation }) => {
     <View
       style={GlobalStyles.droidSafeArea}
     >
-      <View>
-        <Text>Welcome To Kenya Auto Shops</Text>
+      <View className="py-14 px-5">
         <View>
-          <Text>Would you like to ...</Text>
+          <View className="py-8 justify-center">
+            <Text className="text-2xl tracking-tight text-center">Welcome To </Text>
+            <Text className="text-4xl tracking-widest text-center">Kenya Auto Shops</Text>
+          </View>
         </View>
-      </View>
+        <View className="flex h-72 justify-around px-12">
+          <Pressable
+            className="bg-green-200 p-6 rounded-md border border-green-500 w-52"
+            onPress={() => 
+              navigation.navigate('Registration')
+            }
+          >
+            <Text className="text-lg">Create An Account</Text>
+          </Pressable>
 
-      <Button
-        title="Register"
-        onPress={() => 
-          navigation.navigate('Registration')
-        }
-      />
-
-      <Button
-        title="Login"
-        onPress={() => 
-          navigation.navigate('LoginScreen')
-        }
-      />
-      <Button
-        title="House"
-        onPress={() => 
-          navigation.navigate('HomeScreen')
-        }
-      />
+          <Pressable
+            className="bg-slate-200 p-6 rounded-md border border-slate-500 w-44 ml-4 justify-around"
+            onPress={() =>
+              navigation.navigate('LoginScreen')
+            }
+          >
+            <Text className="text-lg">Login</Text>
+          </Pressable>
+        </View>
+      </View> 
     </View>
   )
 }
