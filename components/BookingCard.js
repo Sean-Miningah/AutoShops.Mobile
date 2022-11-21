@@ -1,6 +1,7 @@
-import { View, Text, Image } from 'react-native'
-import React from 'react'
-import { ClipboardDocumentCheckIcon } from 'react-native-heroicons/solid'
+import { View, Text, Pressable } from 'react-native';
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { ClipboardDocumentCheckIcon } from 'react-native-heroicons/solid';
 
 const BookingCard = ({
   date,
@@ -13,7 +14,7 @@ const BookingCard = ({
   technician_id,
   status,
 }) => {
-
+  const navigation = useNavigation();
   const bookingstateChecker = (data) => {
     if (data === true){
       return (
@@ -32,34 +33,49 @@ const BookingCard = ({
     }
   }
   return (
-    <View className="py-2 w-max bg-amber-50">
-      <View className="mx-3 border-b border-b-amber-400 w-max">
-        <View className=" py-5 px-4 w-max bg-amber-50">
-          <View className="absolute right-2 w-22" >
-            <Text className="text-xl text-cyan-800" >{date}</Text>
-            <Text className="text-l text-cyan-600">{time}</Text>
-          </View>
+    <Pressable
+      onPress={() => {
+        navigation.navigate('EditBooking', {
+          date, 
+          time, 
+          garage_pic, 
+          rating, 
+          autouser_description,
+          technician_description,
+          region,
+          technician_id,
+          status
+        })
+      }}
+    >
+      <View className="py-2 w-max bg-amber-50">
+        <View className="mx-3 border-b border-b-amber-400 w-max">
+          <View className=" py-5 px-4 w-max bg-amber-50">
+            <View className="absolute right-2 w-22" >
+              <Text className="text-xl text-cyan-800" >{date}</Text>
+              <Text className="text-l text-cyan-600">{time}</Text>
+            </View>
 
-          <View className="flex-row justify-between">
-            <View>
-              <Text className="text-sm w-56 h-20">{autouser_description.slice(0, 100)}.....</Text>
+            <View className="flex-row justify-between">
+              <View>
+                <Text className="text-sm w-56 h-20">{autouser_description.slice(0, 100)}.....</Text>
+              </View>
+              <View className="mt-4 w-20">
+                {bookingstateChecker(status)}
+              </View>
             </View>
-            <View className="mt-4 w-20">
-              {bookingstateChecker(status)}
+            <View className="">
+              <View>
+                <Text>Location - {region}</Text>
+              </View>
+              <View>  
+                <Text>Rating - {rating} / 5</Text>
+              </View>
             </View>
           </View>
-          <View className="">
-            <View>
-              <Text>Location - {region}</Text>
-            </View>
-            <View>  
-              <Text>Rating - {rating} / 5</Text>
-            </View>
-          </View>
-        </View>
+        </View>    
       </View>
-      
-    </View>
+    </Pressable>
     
   )
 }
